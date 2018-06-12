@@ -14,6 +14,7 @@ import EditProfile from './components/profile/EditProfile';
 import AddExperience from './components/profile/AddExperience';
 import AddEducation from './components/profile/AddEducation';
 import Profiles from './components/profile/Profiles';
+import Profile from './components/profile/Profile';
 import setAuthToken from './utils/setAuthToken';
 import store from './store';
 import { setCurrentUser, logoutUser } from './actions/authActions';
@@ -51,6 +52,7 @@ const App = () => (
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/profiles" component={Profiles} />
+      <Route exact path="/profile/:handle" component={Profile} />
       <Switch>
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/create-profile" component={CreateProfile} />
