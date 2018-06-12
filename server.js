@@ -33,6 +33,17 @@ app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 
+app.use((req, res, next) => {
+  const _send = res.send;
+  let sent = false;
+  res.send = data => {
+    if (sent) return;
+    _send.bind(res)(data);
+    sent = true;
+  };
+  next();
+});
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

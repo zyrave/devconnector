@@ -5,42 +5,32 @@ const isEmpty = require('./is-empty');
 const validateRegisterInput = data => {
   const errors = {};
 
-  data.name = !isEmpty(data.name) ? data.name : '';
-  data.email = !isEmpty(data.email) ? data.email : '';
-  data.password = !isEmpty(data.password) ? data.password : '';
-  data.password2 = !isEmpty(data.password2) ? data.password2 : '';
+  const fields = ['name', 'email', 'password', 'password2'];
 
   if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
-    errors.name = 'Name must be between 2 and 30 characters';
-  }
-
-  if (Validator.isEmpty(data.name)) {
-    errors.name = 'Name field is required';
-  }
-
-  if (Validator.isEmpty(data.email)) {
-    errors.email = 'Email field is required';
-  }
-
-  if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is invalid';
-  }
-
-  if (Validator.isEmpty(data.password)) {
-    errors.password = 'Password field is required';
+    errors.handle = 'Name must be between 2 and 30 characters';
   }
 
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
     errors.password = 'Password must be at least 6 characters';
   }
 
-  if (Validator.isEmpty(data.password2)) {
-    errors.password2 = 'Confirm Password field is required';
+  if (!Validator.isEmail(data.email)) {
+    errors.email = 'Invalid email format';
   }
 
   if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = 'Password must match';
+    errors.password2 = 'Inconsistent password';
   }
+
+  fields.forEach(field => {
+    data[field] = !isEmpty(data[field]) ? data[field] : '';
+    if (Validator.isEmpty(data[field])) {
+      // const label = field[0].toUpperCase() + field.slice(1);
+      // errors[field] = `${label} field is required`;
+      errors[field] = 'This field is required';
+    }
+  });
 
   return {
     errors,

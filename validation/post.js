@@ -12,7 +12,8 @@ const validatePostInput = data => {
   }
 
   if (Validator.isEmpty(data.text)) {
-    errors.text = 'Text field is required';
+    // errors.text = 'Text field is required';
+    errors.text = 'This field is required';
   }
 
   return {

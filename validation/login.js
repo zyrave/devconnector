@@ -9,15 +9,17 @@ const validateLoginInput = data => {
   data.password = !isEmpty(data.password) ? data.password : '';
 
   if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is invalid';
+    errors.email = 'Invalid email format';
   }
 
   if (Validator.isEmpty(data.email)) {
-    errors.email = 'Email field is required';
+    // errors.email = 'Email field is required';
+    errors.email = 'This field is required';
   }
 
   if (Validator.isEmpty(data.password)) {
-    errors.password = 'Password field is required';
+    // errors.password = 'Password field is required';
+    errors.password = 'This field is required';
   }
 
   return {
